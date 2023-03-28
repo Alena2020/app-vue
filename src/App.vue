@@ -1,5 +1,35 @@
-<template></template>
+<template>
+  <div>
+    <div>
+      <button v-on:click="addLike">Like</button>
+      <button v-on:click="addDislike">Dislike</button>
+    </div>
+    <div>
+      Number of likes: <strong>{{ likes }}</strong>
+    </div>
+    <div>
+      Number of dislikes: <strong>{{ dislikes }}</strong>
+    </div>
+  </div>
+</template>
 
-<script></script>
+<script>
+export default {
+  data() {
+    return {
+      likes: 0,
+      dislikes: 0,
+    };
+  },
+  methods: {
+    addLike() {
+      this.likes += 1;
+    },
+    addDislike() {
+      this.dislikes += 1;
+    },
+  },
+};
+</script>
 
 <style></style>
