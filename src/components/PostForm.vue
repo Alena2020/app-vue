@@ -2,15 +2,15 @@
   <form @submit.prevent>
     <h4>Creating a new post</h4>
     <input
-      v-bind:value="title"
-      @input="title = $event.target.value"
+      v-bind:value="post.title"
+      @input="post.title = $event.target.value"
       class="input"
       type="text"
       placeholder="Title"
     />
     <input
-      v-bind:value="description"
-      @input="description = $event.target.value"
+      v-bind:value="post.description"
+      @input="post.description = $event.target.value"
       class="input"
       type="text"
       placeholder="Description"
@@ -19,7 +19,18 @@
   </form>
 </template>
 
-<script></script>
+<script>
+export default {
+  data() {
+    return {
+      post: {
+        title: "",
+        description: "",
+      },
+    };
+  },
+};
+</script>
 
 <style scoped>
 form {
