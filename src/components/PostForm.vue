@@ -8,12 +8,16 @@
       type="text"
       placeholder="Description"
     />
-    <button class="btn" @click="createPost">Add a new post</button>
+    <MyButton @click="createPost">Add a new post</MyButton>
   </form>
 </template>
 
 <script>
+import MyButton from "@/components/UI/MyButton";
 export default {
+  components: {
+    MyButton,
+  },
   data() {
     return {
       post: {
@@ -46,21 +50,5 @@ form {
   padding: 10px 15px;
   border: 1px solid teal;
   margin-top: 15px;
-}
-
-.btn {
-  margin-top: 15px;
-  padding: 10px 15px;
-  align-self: flex-end;
-  background: none;
-  color: teal;
-  border: 1px solid teal;
-  border-radius: 25px;
-  cursor: pointer;
-}
-
-.btn:hover {
-  background: teal;
-  color: white;
 }
 </style>

@@ -5,13 +5,17 @@
       <div><strong>Description: </strong>{{ post.description }}</div>
     </div>
     <div class="post__btns">
-      <button>Remove</button>
+      <MyButton>Remove</MyButton>
     </div>
   </div>
 </template>
 
 <script>
+import MyButton from "@/components/UI/MyButton";
 export default {
+  components: {
+    MyButton,
+  },
   props: {
     post: {
       type: Object,
@@ -24,7 +28,8 @@ export default {
 <style scoped>
 .post {
   padding: 15px;
-  border: 2px solid teal;
+  border: 2px solid #7fffd4;
+  box-shadow: 2px 2px 2px aqua;
   margin-top: 15px;
   display: flex;
   align-items: center;
