@@ -1,16 +1,9 @@
 <template>
   <form @submit.prevent>
     <h4>Creating a new post</h4>
+    <input v-model="post.title" class="input" type="text" placeholder="Title" />
     <input
-      v-bind:value="post.title"
-      @input="post.title = $event.target.value"
-      class="input"
-      type="text"
-      placeholder="Title"
-    />
-    <input
-      v-bind:value="post.description"
-      @input="post.description = $event.target.value"
+      v-model="post.description"
       class="input"
       type="text"
       placeholder="Description"
@@ -28,6 +21,16 @@ export default {
         description: "",
       },
     };
+  },
+  methods: {
+    createPost() {
+      this.post.id = Date.now();
+      this.$emit("create", this.post);
+      this.post = {
+        title: "",
+        description: "",
+      };
+    },
   },
 };
 </script>

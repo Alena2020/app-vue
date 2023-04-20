@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <PostForm />
+    <PostForm @create="createPost" />
     <PostList v-bind:posts="posts" />
   </div>
 </template>
@@ -20,20 +20,11 @@ export default {
         { id: 2, title: "title2", description: "Description2" },
         { id: 3, title: "title3", description: "Description3" },
       ],
-      title: "",
-      description: "",
     };
   },
   methods: {
-    createPost() {
-      const newPost = {
-        id: Date.now(),
-        title: this.title,
-        description: this.description,
-      };
-      this.posts.push(newPost);
-      this.title = "";
-      this.description = "";
+    createPost(post) {
+      this.posts.push(post);
     },
   },
 };
