@@ -5,17 +5,13 @@
       <div><strong>Description: </strong>{{ post.description }}</div>
     </div>
     <div class="post__btns">
-      <MyButton>Remove</MyButton>
+      <my-button>Remove</my-button>
     </div>
   </div>
 </template>
 
 <script>
-import MyButton from "@/components/UI/MyButton";
 export default {
-  components: {
-    MyButton,
-  },
   props: {
     post: {
       type: Object,
