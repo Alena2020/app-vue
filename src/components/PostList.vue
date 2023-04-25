@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="posts.length > 0">
     <h3>List</h3>
     <PostItem
       v-for="post in posts"
@@ -8,6 +8,7 @@
       @remove="$emit('remove', post)"
     />
   </div>
+  <h2 v-else>List posts empty!</h2>
 </template>
 
 <script>
