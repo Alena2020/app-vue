@@ -2,11 +2,7 @@
   <form @submit.prevent>
     <h4>Creating a new post</h4>
     <my-input v-model="post.title" type="text" placeholder="Title" />
-    <my-input
-      v-model="post.description"
-      type="text"
-      placeholder="Description"
-    />
+    <my-input v-model="post.body" type="text" placeholder="Description" />
     <my-button @click="createPost">Add a new post</my-button>
   </form>
 </template>
@@ -17,7 +13,7 @@ export default {
     return {
       post: {
         title: "",
-        description: "",
+        body: "",
       },
     };
   },
@@ -27,7 +23,7 @@ export default {
       this.$emit("create", this.post);
       this.post = {
         title: "",
-        description: "",
+        body: "",
       };
     },
   },
