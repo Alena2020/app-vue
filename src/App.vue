@@ -1,14 +1,18 @@
 <template>
   <div class="app">
     <h1>Page with posts</h1>
-    <my-button @click="fetchPosts">Get posts</my-button>
     <my-button @click="showDialog" style="margin: 15px 0"
       >Create a post
     </my-button>
     <my-dialog v-model:show="dialogVisible">
       <PostForm @create="createPost" />
     </my-dialog>
-    <PostList v-bind:posts="posts" @remove="removePost" />
+    <PostList
+      v-bind:posts="posts"
+      @remove="removePost"
+      v-if="!isPostsLoading"
+    />
+    <div v-else>Loading...</div>
   </div>
 </template>
 
@@ -25,6 +29,7 @@ export default {
     return {
       posts: [],
       dialogVisible: false,
+      isPostsLoading: false,
     };
   },
   methods: {
@@ -40,14 +45,20 @@ export default {
     },
     async fetchPosts() {
       try {
+        this.isPostsLoading = true;
         const response = await axios.get(
           "https://jsonplaceholder.typicode.com/posts?_limit=10"
         );
         this.posts = response.data;
       } catch (e) {
         alert("Error");
+      } finally {
+        this.isPostsLoading = false;
       }
     },
+  },
+  mounted() {
+    this.fetchPosts();
   },
 };
 </script>
