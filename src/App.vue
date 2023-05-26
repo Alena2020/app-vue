@@ -9,7 +9,7 @@
       <PostForm @create="createPost" />
     </my-dialog>
     <PostList
-      v-bind:posts="posts"
+      v-bind:posts="sortedPosts"
       @remove="removePost"
       v-if="!isPostsLoading"
     />
@@ -66,13 +66,11 @@ export default {
   mounted() {
     this.fetchPosts();
   },
-  watch: {
-    selectedSort(newValue) {
-      this.posts.sort((post1, post2) => {
-        return post1[newValue]?.localeCompare(post2[newValue]);
-      })
+  computed: {
+    sortedPosts() {
+      return [...this.posts].sort((post1, post2) => post1[this.selectedSort]?.localeCompare(post2[this.selectedSort]))
     }
-  }
+  }, 
 };
 </script>
 
@@ -83,7 +81,7 @@ export default {
   padding: 0;
 }
 
-.app {
+.app {  
   padding: 20px;
 }
 
