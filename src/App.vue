@@ -18,6 +18,9 @@
       v-if="!isPostsLoading"
     />
     <div v-else>Loading...</div>
+    <div class="page__wrapper">
+      <div v-for="page in totalPages" :key="page" class="page">{{page}}</div>
+    </div>
   </div>
 </template>
 
@@ -37,6 +40,9 @@ export default {
       isPostsLoading: false,
       selectedSort: "",
       searchQuery: "",
+      page: 1,
+      limit: 10,
+      totalPages: 0,
       sortOptions: [
         {value: 'title', name: 'Title'},
         {value: 'body', name: 'Description' },
@@ -58,8 +64,13 @@ export default {
       try {
         this.isPostsLoading = true;
         const response = await axios.get(
-          "https://jsonplaceholder.typicode.com/posts?_limit=10"
-        );
+          "https://jsonplaceholder.typicode.com/posts", {
+            params: {
+              _page: this.page,
+              _limit: this.limit
+            }
+        });
+        this.totalPages = Math.ceil(response.headers['x-total-count'] / this.limit)
         this.posts = response.data;
       } catch (e) {
         alert("Error");
@@ -73,10 +84,10 @@ export default {
   },
   computed: {
     sortedPosts() {
-      return [...this.posts].sort((post1, post2) => post1[this.selectedSort]?.localeCompare(post2[this.selectedSort]))
+      return [...this.posts].sort((post1, post2) => post1[this.selectedSort]?.localeCompare(post2[this.selectedSort]));
     },
     sortedAndSearchPosts() {
-      return this.sortedPosts.filter(post => post.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
+      return this.sortedPosts.filter(post => post.title.toLowerCase().includes(this.searchQuery.toLowerCase()));
 
     }
   }, 
@@ -98,5 +109,20 @@ export default {
   display: flex;
   justify-content: space-between;
   margin: 15px 0;
+}
+
+.page__wrapper {
+  display: flex;
+  margin-top: 15px;
+}
+
+.page{
+  border: 1px solid cyan;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.current-page {
+  border: 3px solid teal;
 }
 </style>
