@@ -1,6 +1,6 @@
 # app_vue
 
-## A project based on YouTube video tutorials from a <a href="https://www.youtube.com/watch?v=XzLuMtDelGk&list=WL" target="_blank">Ulbi TV</a>.
+## A project based on YouTube video tutorials from a [Ulbi TV](https://www.youtube.com/watch?v=XzLuMtDelGk&list=WL).
 
 ## Project setup
 
