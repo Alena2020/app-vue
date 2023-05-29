@@ -19,7 +19,7 @@
     />
     <div v-else>Loading...</div>
     <div class="page__wrapper">
-      <div v-for="page in totalPages" :key="page" class="page">{{page}}</div>
+      <div v-for="pageNumber in totalPages" :key="pageNumber" class="page" :class="{'current-page': page === pageNumber }" @click="changePage(pageNumber)">{{ pageNumber }}</div>
     </div>
   </div>
 </template>
@@ -60,6 +60,9 @@ export default {
     showDialog() {
       this.dialogVisible = true;
     },
+    changePage(pageNumber) {
+      this.page =pageNumber;
+    },
     async fetchPosts() {
       try {
         this.isPostsLoading = true;
@@ -91,6 +94,11 @@ export default {
 
     }
   }, 
+  watch: {
+    page() {      
+      this.fetchPosts();
+    }
+  }
 };
 </script>
 
@@ -124,5 +132,8 @@ export default {
 
 .current-page {
   border: 3px solid teal;
+  background: #2ba7dd;
+  box-shadow: 2px 2px 2px #1b727f, inset -1px -5px 5px midnightblue;
+  color: white;
 }
 </style>
