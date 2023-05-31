@@ -18,9 +18,10 @@
       v-if="!isPostsLoading"
     />
     <div v-else>Loading...</div>
-    <div class="page__wrapper">
+    <div ref="observer" class="observer"></div>
+    <!-- <div class="page__wrapper">
       <div v-for="pageNumber in totalPages" :key="pageNumber" class="page" :class="{'current-page': page === pageNumber }" @click="changePage(pageNumber)">{{ pageNumber }}</div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -60,9 +61,9 @@ export default {
     showDialog() {
       this.dialogVisible = true;
     },
-    changePage(pageNumber) {
-      this.page =pageNumber;
-    },
+    // changePage(pageNumber) {
+    //   this.page =pageNumber;
+    // },
     async fetchPosts() {
       try {
         this.isPostsLoading = true;
@@ -81,9 +82,36 @@ export default {
         this.isPostsLoading = false;
       }
     },
+    async loadMorePosts() {
+      try {
+        this.isPostsLoading = true;
+        const response = await axios.get(
+          "https://jsonplaceholder.typicode.com/posts", {
+          params: {
+            _page: this.page,
+            _limit: this.limit
+          }
+        });
+        this.totalPages = Math.ceil(response.headers['x-total-count'] / this.limit)
+        this.posts = [ ...this.posts, ...response.data];
+      } catch (e) {
+        alert("Error");
+      } finally {
+        this.isPostsLoading = false;
+      }
+    },
   },
   mounted() {
     this.fetchPosts();
+    const options = {
+      rootMargin: '0px',
+      threshold: 1.0
+    }
+    const callback = function (entries, observer) {
+      /* Content excerpted, show below */
+    };
+    const observer = new IntersectionObserver(callback, options);
+
   },
   computed: {
     sortedPosts() {
@@ -95,9 +123,9 @@ export default {
     }
   }, 
   watch: {
-    page() {      
-      this.fetchPosts();
-    }
+    // page() {      
+    //   this.fetchPosts();
+    // }
   }
 };
 </script>
@@ -135,5 +163,10 @@ export default {
   background: #2ba7dd;
   box-shadow: 2px 2px 2px #1b727f, inset -1px -5px 5px midnightblue;
   color: white;
+}
+
+.observer {
+  height: 30px;
+  background: lawngreen;
 }
 </style>
