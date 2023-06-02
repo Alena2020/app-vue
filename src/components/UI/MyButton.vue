@@ -12,10 +12,10 @@ export default {
 
 <style scoped>
 .btn {
-  margin-top: 15px;
+  margin-top: 3px;
   padding: 10px 15px;
   align-self: flex-end;
-  background: none;
+  background: lightcyan;
   color: #2ba7dd;
   border: 1px solid #2ba7dd;
   box-shadow: 2px 2px 2px aqua;

@@ -26,6 +26,7 @@ export default {
 .post {
   padding: 15px;
   border: 2px solid #7fffd4;
+  border-radius: 25px;
   box-shadow: 2px 2px 2px aqua;
   margin-top: 15px;
   display: flex;
