@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Page with posts</h1>
-    <my-input v-model="searchQuery" placeholder="Search..." />
+    <my-input v-focus v-model="searchQuery" placeholder="Search..." />
     <div class="app__btns">
       <my-button @click="showDialog">Create a post </my-button>
       <my-select v-model="selectedSort" :options="sortOptions" />
